@@ -1,0 +1,15 @@
+# Signals 점검 테스트용 예시 — 일부러 위험한 패턴을 넣었다. job은 if: false라 실행되지 않는다.
+on:
+  pull_request_target:
+  issues:
+  workflow_dispatch:
+jobs:
+  a:
+    if: ${{ false }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: tj-actions/changed-files@v44
+      - run: echo "${{ github.event.issue.title }}"
